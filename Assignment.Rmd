@@ -1,0 +1,95 @@
+---
+title: "Assignment"
+author: "Deepu Namboodiri"
+date: "1/18/2020"
+output: html_document
+---
+
+## Data Preprocessing
+
+Data Preprocessing, the first and foremost step that is to be done before we start to solve a "Data Science" problem.
+
+## Loading the required packages
+
+Let's load the required package to read the protein data which is in GCT format.
+```{r load-pkg}
+require(ceap)
+```
+
+## Loading the dataset
+Next, we need to load the entire dataset.
+```{r load-data}
+gene_data <- read.gct("PAAD.gct")
+```
+
+## Operations on the data
+Now, it can be seen that the entire dataset is already huge, but also in a very difficult format to understand. But, if we closely lok into it, we can see that the first 124 rows are actually the metadata and the rest of the data is the real data consisting of the gene expression values which is to be processed later. So we can split the data into the required form.
+
+```{r data-split}
+gene_data = as.data.frame(gene_data)
+
+meta_data = gene_data[1:124, ]
+
+rna_data = gene_data[125:nrow(gene_data),  ]
+```
+
+## Handling missing data
+But for some reason, the values inside the cells of the dataset that we loaded consist of many NaN values and not only that these all are of class "Character". To successfully run the PCA over this data, there should be no NA's or NaN's and they all should be of the "Numeric" class. So we need to make the changes.
+
+```{r data-split}
+rna_data[] <- lapply(rna_data, function(x) as.numeric(as.character(x)))
+
+rna_data[rna_data=="NaN"] = 0
+```
+
+There are other methods like we could go the common imputation functions that are available in R, or we could replace the values with the corresponding columns mean values. Instead of ding all that, I just replaced the NaN's with 0 and did not go for imputation of the missing values because of the the little number of missing values in the dataset and I don't think they would create so much damage to the results.
+
+## Performing the PCA
+
+Now we have the required data with us, we can perform the Principal Component Analysis and get a general picture about the dataset.
+
+```{r pca}
+
+pca = prcomp(rna_data)
+summary(pca)
+
+```
+
+We have performed the PCA now. Since there would be N (Eigen Value, Eigen Vector) pairs, simply speaking N "Principal Components" for an N-dimensional data, here we also have 182 Principal Components after ur analysis. It can be clearly seen that PC1 and PC2 have the highest edge of variance from the entire dataset. 
+
+## Data Visualization
+
+Lets have a visual representation of our results.
+
+```{r biplot, echo=TRUE}
+biplot(pca)
+```
+
+Again as we mentioned above, the PC1 and PC2 are our principal components.
+
+## Answers to Part 1 questions
+
+1. We performed PCA on the entire dataset and visualized it.
+
+2. From our analysis, we could see that: PC1 explains 90% of the total variance, which means that nearly two-thirds of the information in the dataset (9 variables) can be encapsulated by just that one Principal Component. PC2 explains 1% of the variance. So, by knowing the position of a sample in relation to just PC1 and PC2, you can get a very accurate view on where it stands in relation to other samples, as just PC1 and PC2 can explain 91% of the variance.
+
+3. Again, it can be clearly seen that there is only a very little significance of the Neuroendocrine tumors when compared to the Adenocarcinoma tumors, proving they are easily separable when compared to the entire dataset. Not only that, if we can think in a l0gical way, in the entire 182 columns, we could see that only a few number of occurences (around 10) are there for Nueroendocrine tumors. So we can easily prove that it doesn't matter at all.
+
+4. Regarding the variance of the PCA, 91% of the entire dataset stands towards the first and second principal components. The other 180 PCs together contribute to the rest 9% of the data.
+
+## Part 2
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
