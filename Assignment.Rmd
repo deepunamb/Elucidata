@@ -71,7 +71,7 @@ Again as we mentioned above, the PC1 and PC2 are our principal components.
 
 1. We performed PCA on the entire dataset and visualized it.
 
-2. From our analysis, we could see that: PC1 explains 90% of the total variance, which means that nearly two-thirds of the information in the dataset (9 variables) can be encapsulated by just that one Principal Component. PC2 explains 1% of the variance. So, by knowing the position of a sample in relation to just PC1 and PC2, you can get a very accurate view on where it stands in relation to other samples, as just PC1 and PC2 can explain 91% of the variance.
+2. From our analysis, we could see that: PC1 explains 90% of the total variance, which means that nearly two-thirds of the information in the dataset can be encapsulated by just that one Principal Component. PC2 explains 1% of the variance. So, by knowing the position of a sample in relation to just PC1 and PC2, you can get a very accurate view on where it stands in relation to other samples, as just PC1 and PC2 can explain 91% of the variance.
 
 3. Again, it can be clearly seen that there is only a very little significance of the Neuroendocrine tumors when compared to the Adenocarcinoma tumors, proving they are easily separable when compared to the entire dataset. Not only that, if we can think in a l0gical way, in the entire 182 columns, we could see that only a few number of occurences (around 10) are there for Nueroendocrine tumors. So we can easily prove that it doesn't matter at all.
 
