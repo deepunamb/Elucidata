@@ -19,7 +19,7 @@ require(CePa)
 ## Loading the dataset
 Next, we need to load the entire dataset.
 ```{r load-data}
-gene_data <- read.gct("PAAD.gct")
+gene_data <- read.gct("https://raw.githubusercontent.com/deepunamb/Elucidata/master/PAAD.gct")
 ```
 
 ## Operations on the data
