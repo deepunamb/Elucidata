@@ -79,17 +79,29 @@ Again as we mentioned above, the PC1 and PC2 are our principal components.
 
 ## Part 2
 
+In the next part, we need to remove the columns having "neuroendocrine" and in the next step I filtered out the rows with genes listed
+in the txt file. (My next plan was to apply clustering on to this filtered out data for solving the next set of questions, but then I realized everything was wrong in the logical sense.)
+```{r biplot, echo=TRUE}
 
-```{r cars}
-summary(cars)
+library(CePa)
+library(dplyr)
+
+gene_data <- read.gct("https://raw.githubusercontent.com/deepunamb/Elucidata/master/PAAD.gct")
+gene_data = as.data.frame(gene_data)
+
+new_gene_data = gene_data[, -c(22,28, 29,30,31,32,33,35)] # removing neuroendocrine columns
+
+meta_data = new_gene_data[1:124, ]
+rna_data = new_gene_data[125:nrow(gene_data),  ]
+
+rna_data[] <- lapply(rna_data, function(x) as.numeric(as.character(x)))
+rna_data[rna_data=="NaN"] = 0
+
+f1_data = read.table("https://raw.githubusercontent.com/deepunamb/Elucidata/master/type1_IFN.txt", sep = "\n")
+x = f1_data$V1
+x =  as.vector(x)
+y = paste(x, collapse="|") # creating the regular expression to search for the Type 1 gene row.
+
+result <- filter(rna_data, grepl(y, rownames(rna_data))) # filtering out the Type 1 gene rows
+
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
