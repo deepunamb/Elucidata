@@ -13,7 +13,7 @@ Data Preprocessing, the first and foremost step that is to be done before we sta
 
 Let's load the required package to read the protein data which is in GCT format.
 ```{r load-pkg}
-require(ceap)
+require(CePa)
 ```
 
 ## Loading the dataset
