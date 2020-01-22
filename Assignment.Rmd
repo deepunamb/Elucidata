@@ -104,4 +104,32 @@ y = paste(x, collapse="|") # creating the regular expression to search for the T
 
 result <- filter(rna_data, grepl(y, rownames(rna_data))) # filtering out the Type 1 gene rows
 
+result = t(result)
+
+plot(result) 
+
+rna_score= data.frame(Means=rowMeans(result[,1:39])
+                      
+km = kmeans(rna_mean, centers = 2)              
+
+df = data.frame(km$cluster)
+df = cbind(rna_mean$Means, df)
+
+colnames(df) = c("Score", "Presence")
+
+df$Presence[df$Presence == "2"] = "High"
+df$Presence[df$Presence == "1"] = "Low"
+
+plot(df$Score)
+
+km_type = kmeans(df$Score, 2)
+
+df = cbind(df, km_type$cluster)
+
+colnames(df) = c("Score", "Presence", "AFN Subtype")
+
+df$`AFN Subtype`[df$`AFN Subtype` == "1"] = "High"
+df$`AFN Subtype`[df$`AFN Subtype` == "2"] = "Low"
+
+
 ```
