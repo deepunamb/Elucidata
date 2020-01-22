@@ -57,6 +57,12 @@ summary(pca)
 
 We have performed the PCA now. Since there would be N (Eigen Value, Eigen Vector) pairs, simply speaking N "Principal Components" for an N-dimensional data, here we also have 182 Principal Components after ur analysis. It can be clearly seen that PC1 and PC2 have the highest edge of variance from the entire dataset. 
 
+```{r hclust}
+new_gene_data = rna_data[1:1000,]
+new_gene_data = t(new_gene_data)
+dd = dist(new_gene_data)
+plot(hclust(dd), hang = -1, cex=0.6)
+```
 ## Data Visualization
 
 Lets have a visual representation of our results.
