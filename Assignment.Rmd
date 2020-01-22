@@ -89,7 +89,7 @@ library(dplyr)
 gene_data <- read.gct("https://raw.githubusercontent.com/deepunamb/Elucidata/master/PAAD.gct")
 gene_data = as.data.frame(gene_data)
 
-new_gene_data = gene_data[, -c(22,28, 29,30,31,32,33,35)] # removing neuroendocrine columns
+new_gene_data = gene_data[, -c(22,29, 30,31,32,33,34,36)] # removing neuroendocrine columns
 
 meta_data = new_gene_data[1:124, ]
 rna_data = new_gene_data[125:nrow(gene_data),  ]
