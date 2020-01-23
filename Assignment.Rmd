@@ -50,7 +50,7 @@ Now we have the required data with us, we can perform the Principal Component An
 
 ```{r pca}
 
-pca = prcomp(rna_data)
+pca = prcomp(t(rna_data))
 summary(pca)
 
 ```
